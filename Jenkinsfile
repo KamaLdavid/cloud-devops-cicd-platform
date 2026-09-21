@@ -26,7 +26,11 @@ pipeline {
 
    stage('Smoke test') {
       steps{
-         sh "curl -f http://localhost:5000/health"
+         sh '''
+             response=$( curl -fsS http://localhost:5000/health)
+             test "$response" = "OK"
+         '''
+
 }
 }
 }
