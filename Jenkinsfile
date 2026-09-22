@@ -1,5 +1,9 @@
 pipeline {
    agent any
+
+   environment {
+       IMAGE_NAME= "cloud-devops-learn-docker"
+       IMAGE_TAG="build-${BUILD_NUMBER}"
    
    stages {
      stage('validate') {
@@ -13,14 +17,14 @@ pipeline {
 
      stage('Docker build'){
        steps{
-         sh "docker build -f docker/Dockerfile -t cloud-devops-learn-docker:build-${BUILD_NUMBER} ."
+         sh "docker build -f docker/Dockerfile -t ${IMAGE_NAME}:${IMAGE_TAG} ."
 }
 }
 
     stage('Run container') {
        steps{
           sh "docker rm -f cloud-devops-learn-docker-test || true"
-          sh "docker run -d --name cloud-devops-learn-docker-test -p 5000:5000 cloud-devops-learn-docker:build-${BUILD_NUMBER}"
+          sh "docker run -d --name cloud-devops-learn-docker-test -p 5000:5000 ${IMAGE_NAME}:${IMAGE_TAG}"
 }
 }
     stage("Container Health") {
