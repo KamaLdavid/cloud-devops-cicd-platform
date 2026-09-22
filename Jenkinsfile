@@ -4,7 +4,7 @@ pipeline {
    environment {
        IMAGE_NAME= "cloud-devops-learn-docker"
        IMAGE_TAG="build-${BUILD_NUMBER}"
-   
+}   
    stages {
      stage('validate') {
         steps{
