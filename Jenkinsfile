@@ -60,7 +60,7 @@ pipeline {
 
 }
 }
-   stage("Docker image cleanup preview")
+   stage("Docker image cleanup preview") {
        steps{
           sh '''
              echo "Images to be removed"
