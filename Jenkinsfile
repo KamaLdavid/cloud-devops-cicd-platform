@@ -13,14 +13,14 @@ pipeline {
 
      stage('Docker build'){
        steps{
-         sh "docker build -f docker/Dockerfile -t cloud-devops-learn-docker:${BUILD_NUMBER} ."
+         sh "docker build -f docker/Dockerfile -t cloud-devops-learn-docker:build-${BUILD_NUMBER} ."
 }
 }
 
     stage('Run container') {
        steps{
           sh "docker rm -f cloud-devops-learn-docker-test || true"
-          sh "docker run -d --name cloud-devops-learn-docker-test -p 5000:5000 cloud-devops-learn-docker:${BUILD_NUMBER}"
+          sh "docker run -d --name cloud-devops-learn-docker-test -p 5000:5000 cloud-devops-learn-docker:build-${BUILD_NUMBER}"
 }
 }
     stage("Container Health") {
