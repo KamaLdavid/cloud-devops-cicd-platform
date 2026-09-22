@@ -73,7 +73,8 @@ pipeline {
              fi
              
               for tag in $old_images ; do
-                echo "${IMAGE_NAME}:${tag}" 
+                echo "Removing ${IMAGE_NAME}:${tag}"
+                docker rmi "${IMAGE_NAME}:${tag}" || true
               done
           '''
 }
