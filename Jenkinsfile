@@ -60,6 +60,26 @@ pipeline {
 
 }
 }
+   stage("Docker image cleanup preview")
+       steps{
+          sh '''
+             echo "Images to be removed"
+
+             old_images=$(docker images --format '{{.Tag}}' --filter "reference=${IMAGE_NAME}:build-*" | sort -V | head -n -3 )
+             
+             if [ -z "$old_images" ]; then
+                   echo "No old images to remove"
+                   exit 0
+             fi
+             
+              for tag in $old_images ; do
+                echo "${IMAGE_NAME}:${tag}" 
+              done
+          '''
+}
+}  
+
+
 }
 
    post{
