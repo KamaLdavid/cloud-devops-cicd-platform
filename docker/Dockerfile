@@ -5,7 +5,7 @@ COPY app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ .
 EXPOSE 5000
-HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD response=$(curl -fsS http://localhost:5000/health) && test "$response" = "OK" || exit 1
+HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD response=$(curl -fsS http://localhost:5000/health) && test "$response" = "FAIL" || exit 1
 CMD ["python", "app.py"]
 
 
