@@ -4,6 +4,8 @@ pipeline {
    environment {
        IMAGE_NAME= "cloud-devops-learn-docker"
        IMAGE_TAG="build-${BUILD_NUMBER}"
+       AWS_REGION="ap-south-1"
+       ECR_REPOSITORY="cloud-devops-learn-docker"
 }   
    stages {
      stage('validate') {
@@ -59,8 +61,14 @@ pipeline {
          '''
 
 }
+} 
+   stage("Push to ecr"){
+     steps{
+        sh "./script/push-to-ecr.sh"
 }
-   stage("Docker image cleanup preview") {
+}
+   
+   stage("Docker image cleanup") {
        steps{
           sh '''
              echo "Images to be removed"
